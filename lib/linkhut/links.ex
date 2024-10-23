@@ -230,7 +230,6 @@ defmodule Linkhut.Links do
     links()
     |> where(is_private: false)
     |> where(is_unread: false)
-    |> where([_, s], s.user_daily_entry <= 2)
     |> where([_, s], s.rank == 0.0)
     |> where([l], l.inserted_at >= ^datetime)
     |> ordering(params)

@@ -10,7 +10,7 @@ import Config
 # which you should run after static files are built and
 # before starting your production server.
 config :linkhut, LinkhutWeb.Endpoint,
-  url: [scheme: "https", host: "ln.ht", port: 443],
+  url: [scheme: "https", host: "gr8m8.org", port: 443],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
 # Do not print debug messages in production
@@ -62,4 +62,15 @@ config :logger, level: :info
 
 # Finally import the config/runtime.exs which loads secrets
 # and configuration from environment variables.
+config :linkhut, Linkhut.Repo,
+  username: "linkhut",
+  password: "linkhut",
+  database: "linkhut_prod",
+  hostname: "localhost",
+  port: 5432,
+  show_sensitive_data_on_connection_error: true,
+  pool_size: 10
+
+
 import_config "runtime.exs"
+
