@@ -1,6 +1,5 @@
 defmodule LinkhutWeb.Auth.RegistrationController do
   use LinkhutWeb, :controller
-
   plug :put_view, LinkhutWeb.AuthView
 
   alias Linkhut.Accounts
@@ -16,7 +15,7 @@ defmodule LinkhutWeb.Auth.RegistrationController do
     end
   end
 
-  def create(conn, %{"user" => user_params}) do
+  def create(conn, %{"user" => %{"credential" => %{"invite" => "FIXME"}} = user_params}) do
     case Accounts.create_user(user_params) do
       {:ok, user} ->
         conn
@@ -27,7 +26,13 @@ defmodule LinkhutWeb.Auth.RegistrationController do
 
       {:error, changeset} ->
         conn
+        |> put_flash(:info, "Wrong invite code.")
         |> render("register.html", changeset: changeset)
     end
+  end
+
+  def create(conn, _params) do
+    conn
+    |> redirect(to: Routes.link_path(conn, :show, []))
   end
 end
